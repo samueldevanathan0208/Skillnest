@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Projects - LMS Student Portal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .action-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid #e5e7eb;
+            background: #fff;
+            color: #666;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .filter-btn:hover {
+            border-color: #667eea;
+            color: #667eea;
+        }
+
+        .filter-btn.active {
+            background: #667eea;
+            color: #fff;
+            border-color: #667eea;
+        }
+
+        .new-project-btn {
+            padding: 0.75rem 1.5rem;
+            background: #10b981;
+            color: #fff;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background 0.3s;
+        }
+
+        .new-project-btn:hover {
+            background: #059669;
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-box {
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+            border-top: 4px solid;
+        }
+
+        .stat-box.purple { border-top-color: #8b5cf6; }
+        .stat-box.blue { border-top-color: #3b82f6; }
+        .stat-box.green { border-top-color: #10b981; }
+        .stat-box.orange { border-top-color: #f59e0b; }
+
+        .stat-box h3 {
+            font-size: 2rem;
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-box p {
+            color: #666;
+            font-size: 0.875rem;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .project-card {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+            border-color: #667eea;
+        }
+
+        .project-header {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #f6f8fb 0%, #e9ecef 100%);
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .project-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-course {
+            color: #666;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .project-body {
+            padding: 1.5rem;
+        }
+
+        .project-description {
+            color: #555;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .project-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-top: 1px solid #e5e7eb;
+            border-bottom: 1px solid #e5e7eb;
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #666;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.35rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .status-completed {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-progress {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-pending {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .status-submitted {
+            background: #e0e7ff;
+            color: #4338ca;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tag {
+            padding: 0.25rem 0.75rem;
+            background: #f3f4f6;
+            color: #4b5563;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .project-footer {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 0.75rem;
+            border-radius: 6px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.875rem;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
+        }
+
+        .btn-secondary {
+            background: #f3f4f6;
+            color: #4b5563;
+        }
+
+        .btn-secondary:hover {
+            background: #e5e7eb;
+        }
+
+        .grade-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: #fff;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .empty-state h3 {
+            font-size: 1.5rem;
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
+        }
+
+        .empty-state p {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 2rem 1rem;
+            }
+
+            .header h1 {
+                font-size: 1.75rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .action-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-tabs {
+                justify-content: center;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-content">
+            <h1>My Projects</h1>
+            <p>Showcase your work and track your submissions</p>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Stats Row -->
+        <div class="stats-row">
+            <div class="stat-box purple">
+                <h3>12</h3>
+                <p>Total Projects</p>
+            </div>
+            <div class="stat-box blue">
+                <h3>3</h3>
+                <p>In Progress</p>
+            </div>
+            <div class="stat-box green">
+                <h3>8</h3>
+                <p>Completed</p>
+            </div>
+            <div class="stat-box orange">
+                <h3>1</h3>
+                <p>Pending Review</p>
+            </div>
+        </div>
+
+        <!-- Action Bar -->
+        <div class="action-bar">
+            <div class="filter-tabs">
+                <a href="#all" class="filter-btn active">All Projects</a>
+                <a href="#progress" class="filter-btn">In Progress</a>
+                <a href="#completed" class="filter-btn">Completed</a>
+                <a href="#pending" class="filter-btn">Pending</a>
+            </div>
+            <a href="#new" class="new-project-btn">
+                <span>➕</span>
+                <span>New Project</span>
+            </a>
+        </div>
+
+        <!-- Projects Grid -->
+        <div class="projects-grid">
+            <!-- Project Card 1 -->
+            <div class="project-card">
+                <div class="project-header">
+                    <h3 class="project-title">E-Commerce Website</h3>
+                    <p class="project-course">📚 Web Development Fundamentals</p>
+                </div>
+                <div class="project-body">
+                    <p class="project-description">
+                        A fully responsive e-commerce website with shopping cart functionality, product filtering, and checkout process. Built with HTML, CSS, and vanilla JavaScript.
+                    </p>
+                    
+                    <div class="project-tags">
+                        <span class="tag">HTML</span>
+                        <span class="tag">CSS</span>
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">Responsive</span>
+                    </div>
+
+                    <div class="project-meta">
+                        <div class="meta-item">
+                            <span>📅</span>
+                            <span>Due: Dec 15, 2024</span>
+                        </div>
+                        <span class="status-badge status-completed">Completed</span>
+                    </div>
+
+                    <div class="project-meta">
+                        <div class="meta-item">
+                            <span>⏱️</span>
+                            <span>Submitted: Dec 10, 2024</span>
+                        </div>
+                        <div class="grade-badge">
+                            <span>🏆</span>
+                            <span>95/100</span>
+                        </div>
+                    </div>
+
+                    <div class="project-footer">
+                        <a href="#view" class="btn btn-primary">View Project</a>
+                        <a href="#details" class="btn btn-secondary">Details</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project Card 2 -->
+            <div class="project-card">
+                <div class="project-header">
+                    <h3 class="project-title">Todo App with React</h3>
+                    <p class="project-course">📚 React.js Complete Guide</p>
+                </div>
+                <div class="project-body">
+                    <p class="project-description">
+                        An interactive todo application with features like adding, editing, deleting tasks, marking complete, and filtering by status. Uses React hooks and local storage.
+                    </p>
+                    
+                    <div class="project-tags">
+                        <span class="tag">React</span>
+                        <span class="tag">Hooks</span>
+                        <span class="tag">Local Storage</span>
+                    </div>
+
+                    <div class="project-meta">
+                        <div class="meta-item">
+                            <span>📅</span>
+                            <span>Due: Dec 20, 2024</span>
+                        </div>
+                        <span class="status-badge status-progress">In Progress</span>
+                    </div>
+
+                    <div class="project-meta">
+                        <div class="meta-item">
+                            <span>📊</span>
+                            <span>Progress: 65%</span>
+                        </div>
+                        <div class="meta-item">
+                            <span>⏰</span>
+                            <span>5 days left</span>
+                        </div>
+                    </div>
+
+                    <div class="project-footer">
+                        <a href="#continue" class="btn btn-primary">Continue Work</a>
+                        <a href="#details" class="btn btn-secondary">Details</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project Card 3 -->
+            <div class="project-card">
+                <div class="project-header">
+                    <h3 class="project-title">Portfolio Website Redesign</h3>
+                    <p class="project-course">📚 UI/UX Design Principles</p>
+                </div>
+                <div class="project-body">
+                    <p class="project-description">
+                        Complete redesign of a personal portfolio website with modern UI/UX principles, including wireframes, mockups, and final implementation with animations.
+                    </p>
+                    
+                    <div class="project-tags">
+                        <span class="tag">UI Design</span>
+                        <span class="tag">Figma</span>
+                        <span class="tag">CSS Animations</span>
+                    </div>
+
+                    <div class="project-meta">
+                        <div class="meta-item">
+                            <span>📅</span>
+                            <span>Due: Nov 28, 2024</span>
+                        </div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                    </div>
+
+                    <div class="project-meta">
+                        <div class="meta-item">
+                            <span>⏱️</span>
+                            <span>Submitted: Nov 25, 2024</span>
+                        </div>
+                        <div class="meta-item">
+                            <span>⏳</span>
+                            <span>Under Review</span>
+                        </div>
+                    </div>
+
+                    <div class="project-footer">
+                        <a href="#view" class="btn btn-primary">View Submission</a>
+                        <a href="#details" class="btn btn-secondary">Details</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project Card 4 -->
+            <div class="project-card">
+                <div class="project-header">
+                    <h3 class="project-title">Weather App API Integration</h3>
+                    <p class="project-course">📚 JavaScript Advanced Concepts</p>
+                </div>
+                <div class="project-body">
+                    <p class="project-description">
+                        A weather application that fetches real-time data from OpenWeather API, displays current conditions, and 5-day forecast with error handling and loading states.
+                    </p>
+                    
+                    <div class="project-tags">
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">API</span>
+                        <span class="tag">Async/Await</span>
+                    </div>
+
+                    <div class="project-meta">
+                        <div class="meta-item">
+                            <span>📅</span>
+                            <span>Due: Dec 25, 2024</span>
+                        </div>
+                        <span class="status-badge status-progress">In Progress</span>
+                    </div>
+
+                    <div class="project-meta">
+                        <div class="meta-item">
+                            <span>📊</span>
+                            <span>Progress: 40%</span>
+                        </div>
+                        <div class="meta-item">
+                            <span>⏰</span>
+                            <span>10 days left</span>
+                        </div>
+                    </div>
+
+                    <div class="project-footer">
+                        <a href="#continue" class="btn btn-primary">Continue Work</a>
+                        <a href="#details" class="btn btn-secondary">Details</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project Card 5 -->
+            <div class="project-card">
+                <div class="project-header">
+                    <h3 class="project-title">Blog CMS Dashboard</h3>
+                    <p class="project-course">📚 Web Development Fundamentals</p>
+                </div>
+                <div class="project-body">
+                    <p class="project-description">
+                        A content management system dashboard for a blog with features to create, edit, and delete posts. Includes user authentication and role-based access.
+                    </p>
+                    
+                    <div class="project-tags">
+                        <span class="tag">Full Stack</span>
+                        <span class="tag">Node.js</span>
+                        <span class="tag">MongoDB</span>
+                    </div>
+
+                    <div class="project-meta">
+                        <div class="meta-item">
+                            <span>📅</span>
+                            <span>Due: Nov 20, 2024</span>
+                        </div>
+                        <span class="status-badge status-completed">Completed</span>
+                    </div>
+
+                    <div class="project-meta">
+                        <div class="meta-item">
+                            <span>⏱️</span>
+                            <span>Submitted: Nov 18, 2024</span>
+                        </div>
+                        <div class="grade-badge">
+                            <span>🏆</span>
+                            <span>92/100</span>
+                        </div>
+                    </div>
+
+                    <div class="project-footer">
+                        <a href="#view" class="btn btn-primary">View Project</a>
+                        <a href="#details" class="btn btn-secondary">Details</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project Card 6 -->
+            <div class="project-card">
+                <div class="project-header">
+                    <h3 class="project-title">Mobile App Mockup</h3>
+                    <p class="project-course">📚 UI/UX Design Principles</p>
+                </div>
+                <div class="project-body">
+                    <p class="project-description">
+                        Design mockup for a fitness tracking mobile application including user flows, wireframes, and high-fidelity prototypes with interactive elements.
+                    </p>
+                    
+                    <div class="project-tags">
+                        <span class="tag">Mobile Design</span>
+                        <span class="tag">Prototyping</span>
+                        <span class="tag">User Flow</span>
+                    </div>
+
+                    <div class="project-meta">
+                        <div class="meta-item">
+                            <span>📅</span>
+                            <span>Due: Dec 30, 2024</span>
+                        </div>
+                        <span class="status-badge status-pending">Not Started</span>
+                    </div>
+
+                    <div class="project-meta">
+                        <div class="meta-item">
+                            <span>📊</span>
+                            <span>Progress: 0%</span>
+                        </div>
+                        <div class="meta-item">
+                            <span>⏰</span>
+                            <span>15 days left</span>
+                        </div>
+                    </div>
+
+                    <div class="project-footer">
+                        <a href="#start" class="btn btn-primary">Start Project</a>
+                        <a href="#details" class="btn btn-secondary">Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
