@@ -205,7 +205,7 @@
             border-radius: 0.5rem;
             font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.3s;
+         
         }
 
         .start-btn:hover {
@@ -213,9 +213,7 @@
         }
 
 
-        .projects-illustration::before {
-            content: '📊';
-        }
+   
 
         .courses-header {
             display: flex;
@@ -240,7 +238,7 @@
             border-radius: 0.5rem;
             font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.3s;
+
         }
 
         .view-all-btn:hover {
@@ -318,7 +316,7 @@
             color: #1f2937;
         }
 
-        /* Responsive Design */
+
         @media (max-width: 1024px) {
             .dashboard-grid {
                 grid-template-columns: 1fr;

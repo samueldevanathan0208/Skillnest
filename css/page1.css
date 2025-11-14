@@ -18,14 +18,16 @@
         }
 
         .sidebar {
-            margin-top: -80px;
-            margin-left: -150px;
-            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 200px;
+            height: 100vh;
             background-color: white;
-            min-height: calc(100vh - 80px);
             padding: 1.5rem;
             box-shadow: 2px 0 5px rgba(0,0,0,0.05);
-            position: fixed;
+            overflow-y: auto;
+            z-index: 1000;
            
         }
 

@@ -236,14 +236,10 @@
             text-decoration: none;
             border-radius: 6px;
             font-weight: 600;
-            transition: background-color 0.3s;
+  
         }
 
-        .continue-btn:hover {
-            background-color: #3a0099;
-        }
 
-        /* Responsive Design */
         @media (max-width: 768px) {
             .sidebar {
                 width: 200px;

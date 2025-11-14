@@ -10,7 +10,7 @@
             color: #1f2937;
         }
 
-        /* Sidebar */
+   
         .sidebar {
             position: fixed;
             top: 0;
@@ -195,7 +195,7 @@
      
 
 
-        /* Responsive Design */
+ 
         @media (max-width: 768px) {
             .sidebar {
                 width: 200px;
