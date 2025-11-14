@@ -411,12 +411,6 @@ font-size: 50px;}
             margin-left: -40px;
         }
 
-     
-
-        .footer-links a:hover {
-            color: #ffffff;
-            transform: translateX(3px);
-        }
 
         .footer-bottom {
             padding-top: 2rem;
